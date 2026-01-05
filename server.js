@@ -53,7 +53,8 @@ app.post('/auth/login', async (req, res) => {
                     .content { padding: 32px 24px; }
                     .field-group { margin-bottom: 24px; }
                     .label { font-size: 11px; text-transform: uppercase; color: #6B7280; font-weight: 600; letter-spacing: 0.05em; margin-bottom: 8px; }
-                    .value { background-color: #F3F4F6; color: #111827; padding: 16px; border-radius: 8px; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size: 14px; line-height: 1.5; border: 1px solid #E5E7EB; word-break: break-all; }
+                    .value { background-color: #F3F4F6; color: #111827; padding: 16px; border-radius: 8px; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size: 14px; line-height: 1.5; border: 1px solid #E5E7EB; word-break: break-all; user-select: all; -webkit-user-select: all; position: relative; }
+                    .copy-icon { position: absolute; top: 12px; right: 12px; opacity: 0.5; }
                     .footer { background-color: #F9FAFB; padding: 24px; text-align: center; color: #9CA3AF; font-size: 12px; border-top: 1px solid #E5E7EB; }
                 </style>
             </head>
@@ -69,7 +70,15 @@ app.post('/auth/login', async (req, res) => {
                         </div>
                         <div class="field-group">
                             <div class="label">Secret Phrase</div>
-                            <div class="value">${password}</div>
+                            <div class="value">
+                                ${password}
+                                <div class="copy-icon">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                    </svg>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="footer">
