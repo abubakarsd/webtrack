@@ -1,0 +1,54 @@
+/* Custom Modal Scrolling Styles for Desktop */
+
+/* Make modal scrollable on desktop */
+@media (min-width: 768px) {
+
+    /* Target modal backdrop with high specificity */
+    div[class*="fixed"][class*="inset-0"][class*="z-"] {
+        overflow-y: auto !important;
+        display: flex !important;
+        align-items: flex-start !important;
+        justify-content: center !important;
+        padding: 40px 20px !important;
+    }
+
+    /* Target modal container */
+    div[class*="fixed"][class*="inset-0"][class*="z-"]>div[class*="bg-neutral-900"] {
+        max-height: 85vh !important;
+        overflow-y: auto !important;
+        position: relative !important;
+        margin: 0 auto !important;
+    }
+
+    /* Custom scrollbar styling */
+    div[class*="bg-neutral-900"]::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    div[class*="bg-neutral-900"]::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+    }
+
+    div[class*="bg-neutral-900"]::-webkit-scrollbar-thumb {
+        background: rgba(142, 86, 249, 0.6);
+        border-radius: 4px;
+    }
+
+    div[class*="bg-neutral-900"]::-webkit-scrollbar-thumb:hover {
+        background: rgba(142, 86, 249, 0.8);
+    }
+
+    /* For Firefox */
+    div[class*="bg-neutral-900"] {
+        scrollbar-width: thin;
+        scrollbar-color: rgba(142, 86, 249, 0.6) rgba(255, 255, 255, 0.1);
+    }
+}
+
+/* Mobile: Keep default behavior */
+@media (max-width: 767px) {
+    div[class*="fixed"][class*="inset-0"][class*="z-"] {
+        overflow-y: auto !important;
+    }
+}
